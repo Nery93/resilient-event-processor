@@ -7,5 +7,5 @@ import (
 )
 
 type EventPublisher interface {
-	Publish(ctx context.Context, event domain.Event) error
+	Publish(ctx context.Context, event domain.EventRequest) error
 }

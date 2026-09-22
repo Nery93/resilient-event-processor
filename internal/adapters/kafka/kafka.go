@@ -13,7 +13,7 @@ type Producer struct {
 
 
 
-func (p *Producer) Publish(ctx context.Context, event domain.Event) error {
+func (p *Producer) Publish(ctx context.Context, event domain.EventRequest) error {
 	msg := kafka.Message{
 		Key:   []byte(event.EventID),
 		Value: []byte(event.Payload),
