@@ -13,7 +13,6 @@ type Handler struct {
 	eventPublisher ports.EventPublisher
 }
 
-
 func (h *Handler) PublishEvent(w http.ResponseWriter, r *http.Request) {
 	var req domain.EventRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
@@ -22,8 +21,8 @@ func (h *Handler) PublishEvent(w http.ResponseWriter, r *http.Request) {
 	}
 
 	event := domain.Event{
-		EventID: req.EventID,
-		Payload: req.Payload,
+		EventID:   req.EventID,
+		Payload:   req.Payload,
 		Timestamp: time.Now().UTC(),
 	}
 	if err := h.eventPublisher.Publish(r.Context(), event); err != nil {
