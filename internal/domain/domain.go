@@ -5,11 +5,6 @@ import (
 	"time"
 )
 
-type EventRequest struct {
-	EventID   string          `json:"event_id"`
-	Payload   json.RawMessage `json:"payload"`
-}
-
 type Event struct {
 	EventID   string          `json:"event_id"`
 	Payload   json.RawMessage `json:"payload"`
