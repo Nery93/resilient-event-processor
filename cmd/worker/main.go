@@ -15,11 +15,19 @@ func main() {
 		GroupID: "worker-group",
 	})
 
+	maxConcurrentWorkers  := make(chan struct{}, 5) // limit concurrency to 5 goroutines
+
 	for {
 		msg, err := reader.ReadMessage(context.Background())
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println(string(msg.Value))
+
+		maxConcurrentWorkers <- struct{}{} // acquire a slot
+		go func(msg kafka.Message) {
+			defer func() { <-maxConcurrentWorkers }() // release the slot
+			fmt.Println(string(msg.Value))
+		}(msg)
+
 	}
 }
