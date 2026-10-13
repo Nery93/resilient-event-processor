@@ -9,3 +9,7 @@ import (
 type EventPublisher interface {
 	Publish(ctx context.Context, event domain.Event) error
 }
+
+type EventProcessed interface {
+	HandleEventProcessed(ctx context.Context, event domain.Event) (bool, error)
+}
